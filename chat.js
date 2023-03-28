@@ -155,6 +155,7 @@ wss.on("connection", function connection(ws) {
         queue: rooms[roomId].queue,
         isPlaying: rooms[roomId].isPlaying,
         elapsedTime: rooms[roomId].getElapsedTime(),
+        clients: rooms[roomId].clients,
         clientsCount: rooms[roomId].clients.size, // New clientsCount property
       };
 
@@ -163,6 +164,7 @@ wss.on("connection", function connection(ws) {
       let clientCount = {
         type: "clientSizeUpdate",
         clientsCount: rooms[roomId].clients.size,
+        clients: rooms[roomId].clients
       };
       rooms[roomId].clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN)
@@ -328,6 +330,7 @@ wss.on("connection", function connection(ws) {
           const response = {
             type: "clientSizeUpdate",
             clientsCount: clientSizeCount,
+            clients: rooms[roomIdToRemove].clients,
             elapsedTime: rooms[roomIdToRemove].getElapsedTime(),
           };
           client.send(JSON.stringify(response));

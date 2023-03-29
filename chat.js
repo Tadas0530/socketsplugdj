@@ -13,6 +13,7 @@ class Room {
   constructor(id) {
     this.id = id;
     this.clients = new Set();
+    this.users = [];
     this.queue = [];
     this.likeAmount = 0;
     this.dislikeAmount = 0;
